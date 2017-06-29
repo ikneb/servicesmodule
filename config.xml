@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>servicesproduct</name>
+    <displayName><![CDATA[Services module]]></displayName>
+    <version><![CDATA[1.0.0]]></version>
+    <description><![CDATA[Services module]]></description>
+    <author><![CDATA[Weeteam]]></author>
+    <tab><![CDATA[administration]]></tab>
+    <is_configurable>0</is_configurable>
+    <need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

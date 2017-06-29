@@ -8,25 +8,14 @@ class AdminServicesProductController extends ModuleAdminController
         require_once(_PS_MODULE_DIR_ . 'servicesproduct/classes/OrdersCalendarServices.php');
 
         $this->bootstrap = true;
-        $this->required_database = true;
-        $this->required_fields = array(
-            'id_calendar_services',
-            'id_product',
-            'start',
-            'end',
-            'type_step',
-            'step_time',
-            'step_days',
-            'service_active',
-            'working_days'
-        );
         $this->table = 'calendar_services';
         $this->className = 'CalendarServices';
         $this->lang = false;
         $this->context = Context::getContext();
+
         parent::__construct();
 
-
+        $this->allow_export = false;
         $this->bulk_actions = array(
             'delete' => array(
                 'text' => $this->l('Delete selected'),
@@ -86,6 +75,13 @@ class AdminServicesProductController extends ModuleAdminController
         parent::setMedia();
         $this->context->controller->addCSS(_PS_MODULE_DIR_ . 'servicesproduct/views/css/style.css', 'all');
         $this->context->controller->addJS(_PS_MODULE_DIR_ . 'servicesproduct/views/js/admin/module.js');
+    }
+
+    public function initToolbar()
+    {
+        parent::initToolbar();
+        unset($this->toolbar_btn['new']);
+        unset($this->toolbar_btn['export']);
     }
 
 

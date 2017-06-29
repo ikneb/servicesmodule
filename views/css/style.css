@@ -337,7 +337,7 @@ a.fc-event {
 
 a.fc-event,
 .fc-event-draggable {
-    cursor: pointer;
+    /*cursor: pointer;*/
 }
 
 .fc-rtl .fc-event {
@@ -908,4 +908,12 @@ body .hide-popup {
 
 body .view-popup {
     display: block;
+}
+
+#trash-service {
+    float: right;
+    margin-right: 53px;
+    margin-top: -4px;
+    color: #ff0000;
+    cursor: pointer;
 }

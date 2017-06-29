@@ -59,5 +59,12 @@ switch (Tools::getValue('ajax')) {
     case 'checkService':
         echo json_encode(OrdersCalendarServices::checkIssetService());
         break;
+    case 'remove_service':
+        $order_service  = new OrdersCalendarServices((int)Tools::getValue('id'));
+        if ($order_service->delete()) {
+            echo true;
+        }
+        echo false;
+        break;
 
 }

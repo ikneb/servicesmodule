@@ -248,11 +248,11 @@ var phone;
         /* Main Rendering
          -----------------------------------------------------------------------------*/
 
-
         setYMD(date, options.year, options.month, options.date);
 
 
         function render(inc) {
+
             if (!content) {
                 initialRender();
             }
@@ -404,7 +404,6 @@ var phone;
 
         function _renderView(inc, new_date) { // assumes elementVisible
             ignoreWindowResize++;
-
             if (currentView.start) { // already been rendered?
                 trigger('viewDestroy', currentView, currentView, currentView.element);
                 unselect();
@@ -4045,6 +4044,7 @@ var phone;
 
             // set all positions/dimensions at once
             for (i = 0; i < segCnt; i++) {
+
                 seg = segs[i];
                 if (eventElement = seg.element) {
                     eventElement[0].style.width = Math.max(0, seg.outerWidth - seg.hsides) + 'px';
@@ -4052,10 +4052,11 @@ var phone;
                     eventElement[0].style.height = height + 'px';
                     event = seg.event;
                     if (seg.contentTop !== undefined && height - seg.contentTop < 10) {
+                        console.log(event);
                         // not enough room for title, put it in the time (TODO: maybe make both display:inline instead)
                         eventElement.find('div.fc-event-time')
-                            .text(formatDate(event.start, opt('timeFormat')) + ' - ' + formatDate(event.end, opt('timeFormat')) +
-                            ' ' + event.title + ' ' + event.phone );
+                            .html(formatDate(event.start, opt('timeFormat')) + ' - ' + formatDate(event.end, opt('timeFormat')) +
+                            ' ' + event.title + ' ' + event.phone + '<i data-db="' + event.id_db + '" data-id="'+ seg.event._id +'" id="trash-service" class="icon-trash"></i>');
                         eventElement.find('div.fc-event-title')
                             .remove();
                     }
@@ -5453,7 +5454,7 @@ var phone;
                 ">" +
                 "<div class='fc-event-inner'>";
             if (!event.allDay && segment.isStart) {
-                console.log(event);
+
                 html +=
                     "<span class='fc-event-time'>" +
                     htmlEscape(
@@ -6341,13 +6342,15 @@ $(document).ready(function () {
     });
 
     jQuery.each(order_services, function (i) {
+
         calendar.fullCalendar('renderEvent',
             {
                 title: this.name,
                 start: new Date(this.start),
                 end: new Date(this.end),
                 allDay: false,
-                phone: this.phone
+                phone: this.phone,
+                id_db: this.id_orders_service,
             },
             true // make the event "stick"
         );
@@ -6401,4 +6404,28 @@ $(document).ready(function () {
         });
         return isset;
     }
+
+    $('body').on('click', '#trash-service', function (e) {
+        e.preventDefault();
+        //$(this).closest('.fc-event').remove();
+        var id_db =  $(this).attr('data-db');
+
+        $.ajax({
+            type: 'POST',
+            url: '/modules/servicesproduct/ajax.php',
+            data: {
+                ajax: 'remove_service',
+                id: id_db
+            },
+            success: function (data) {
+
+                console.log(data);
+            }
+        });
+        var id = $(this).attr('data-id');
+        calendar.fullCalendar('removeEvents',id);
+    });
 });
+
+
+

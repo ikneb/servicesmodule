@@ -4052,7 +4052,6 @@ var phone;
                     eventElement[0].style.height = height + 'px';
                     event = seg.event;
                     if (seg.contentTop !== undefined && height - seg.contentTop < 10) {
-                        console.log(event);
                         // not enough room for title, put it in the time (TODO: maybe make both display:inline instead)
                         eventElement.find('div.fc-event-time')
                             .html(formatDate(event.start, opt('timeFormat')) + ' - ' + formatDate(event.end, opt('timeFormat')) +
@@ -6369,11 +6368,11 @@ $(document).ready(function () {
         id_service = $('input[name="id_service"]').val();
         name = $('input[name="name"]').val();
         phone = $('input[name="phone"]').val();
+        console.log(phone);
         var start = start_date.getFullYear() + '-' + (Number(start_date.getMonth()) + 1) + '-' + start_date.getDate() + ' ' +
             start_date.getHours() + ':' + start_date.getMinutes() + ':' + start_date.getSeconds();
         var end = end_date.getFullYear() + '-' + (Number(end_date.getMonth()) + 1) + '-' + end_date.getDate() + ' ' +
             end_date.getHours() + ':' + end_date.getMinutes() + ':' + end_date.getSeconds();
-
 
         $.ajax({
             type: 'POST',
@@ -6418,7 +6417,6 @@ $(document).ready(function () {
                 id: id_db
             },
             success: function (data) {
-
                 console.log(data);
             }
         });

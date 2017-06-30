@@ -54,4 +54,31 @@ class OrdersCalendarServices extends ObjectModel
         }
         return false;
     }
+
+    public function sendNotification() {
+        $shop_email = strval(Configuration::get('PS_SHOP_EMAIL'));
+        $id_lang = (int)Configuration::get('PS_LANG_DEFAULT');
+        $shop_name = Configuration::get('PS_SHOP_NAME');
+        $subject = 'New order';
+        $dump = Mail::Send(
+            $id_lang,
+            'mail',
+            $subject,
+            array(
+                '{message}' => 'New order',
+            ),
+            $shop_email,
+            $shop_name,
+            $shop_email,
+            $shop_name,
+            null,
+            null,
+            _PS_MODULE_DIR_ . 'servicesproduct/mail/'
+        );
+        if (!$dump) {
+            return false;
+        }
+
+        return true;
+    }
 }

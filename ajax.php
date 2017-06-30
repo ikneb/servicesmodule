@@ -54,6 +54,8 @@ switch (Tools::getValue('ajax')) {
         $order_service->start = Tools::getValue('start');
         $order_service->end = Tools::getValue('end');
         $order_service->add();
+        $order_service->sendNotification();
+
         echo $order_service->id;
         break;
     case 'checkService':

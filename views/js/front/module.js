@@ -6381,7 +6381,6 @@ $(document).ready(function () {
                 end: end
             },
             success: function (data) {
-                console.log(123);
                $('#wt_name').val('');
                $('#wt_phone').val('');
             }
